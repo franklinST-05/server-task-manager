@@ -1,0 +1,25 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "author": "Franklin <franklinteixeira205@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx --watch src/main/server.ts",
+    "build": "tsc",
+    "prepare": "husky install",
+    "lint_pre-commit": "lint-staged",
+    "lint_commit-msg": "commitlint --edit $1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.6"
+  }
+}
