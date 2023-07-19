@@ -16,6 +16,13 @@ export class ActiveUserController implements Controller {
     }
 
     const { id } = isValidToken.data;
+    const existsUser = await repos.user.findById({ id });
+    if(!existsUser || existsUser.verified) {
+      return res.status(401).json({
+        error: "Invalid token"
+      });
+    }
+
     const updateUser = await repos.user.update({
       id, verified: true
     });
