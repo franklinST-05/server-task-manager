@@ -1,6 +1,7 @@
 import repos from "../../../infra/database";
 import { encryptor } from "../../../utils/encryptor";
 import { validSchema } from "../../../validators";
+import { UserDTO } from "../../dtos/UserDTO";
 import { Controller, HttpDataResponse, HttpRequest, HttpResponse } from "../../protocols/controller";
 
 export class CreateUserController implements Controller {
@@ -26,9 +27,9 @@ export class CreateUserController implements Controller {
       email,
       password: encryptedPass
     });
-    
+
     return res.json({
-      data: user
+      data: UserDTO.from(user)
     });
   }
 }
