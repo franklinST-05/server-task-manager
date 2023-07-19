@@ -1,7 +1,7 @@
 import { UserModel } from "../../../../domain/models/UserModel";
-import { sign } from "../../../../utils/jwt";
+import { JwtPayload, sign, verify } from "../../../../utils/jwt";
 import { mail } from "../../../../utils/mail";
-import verifyEmailTemplate from "../../../../utils/mail/templates/verify-email";
+import recoveryPasswordTemplate from "../../../../utils/mail/templates/recovery-password";
 
 interface AuthRecoveryMail {
   module: string;
@@ -9,7 +9,7 @@ interface AuthRecoveryMail {
   email: string;
 }
 
-export const sendAuthRecoveryMail = ({ id, email }: UserModel) => {
+export const sendAuthRecoveryMail = ({ id, email, username }: UserModel) => {
   const verifyToken = sign<AuthRecoveryMail>({
     module: "mail:recovery", id, email
   }, {
@@ -19,21 +19,21 @@ export const sendAuthRecoveryMail = ({ id, email }: UserModel) => {
 
   mail.sendMail({
     to: email,
-    html: verifyEmailTemplate({ token: verifyToken }),
-    subject: "Confirm Email",
+    html: recoveryPasswordTemplate({ token: verifyToken, username }),
+    subject: "Change password",
   });
 };
 
-// export const checkTokenVerificationMail = (token: string): JwtPayload<AuthRecoveryMail> | null => {
-//   const isValidToken = verify<AuthRecoveryMail>(token);
-//   if (!isValidToken) {
-//     return null;
-//   }
+export const checkTokenAuthRecoveryMail = (token: string): JwtPayload<AuthRecoveryMail> | null => {
+  const isValidToken = verify<AuthRecoveryMail>(token);
+  if (!isValidToken) {
+    return null;
+  }
 
-//   const { module } = isValidToken.data;
-//   if (!module || module !== "mail:check") {
-//     return null;
-//   }
+  const { module } = isValidToken.data;
+  if (!module || module !== "mail:recovery") {
+    return null;
+  }
 
-//   return isValidToken;
-// };
+  return isValidToken;
+};
