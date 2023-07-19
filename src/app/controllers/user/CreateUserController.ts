@@ -38,7 +38,7 @@ export class CreateUserController implements Controller {
 
     sendVerificationMail(user);
     return res.status(201).json({
-      data: UserDTO.from(user)
+      data: UserDTO.from(user),
     });
   }
 }

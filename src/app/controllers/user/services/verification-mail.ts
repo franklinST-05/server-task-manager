@@ -5,14 +5,14 @@ import verifyEmailTemplate from "../../../../utils/mail/templates/verify-email";
 
 interface VerificationMail {
   module: string;
-  username: string;
+  id: string;
   email: string;
 }
 
-export const sendVerificationMail = ({ username, email }: UserModel) => {
+export const sendVerificationMail = ({ id, email }: UserModel) => {
   const verifyToken = sign<VerificationMail>({
     module: "mail:check",
-    username,
+    id,
     email
   }, {
     expiresIn: "10m",
@@ -33,7 +33,7 @@ export const checkVerificationMailToken = (token: string): JwtPayload<Verificati
   }
 
   const { module } = isValidToken.data;
-  if (!module || module != "mail:check") {
+  if (!module || module !== "mail:check") {
     return null;
   }
 
