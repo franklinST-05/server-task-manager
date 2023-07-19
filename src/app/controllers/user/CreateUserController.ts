@@ -1,3 +1,5 @@
+import repos from "../../../infra/database";
+import { encryptor } from "../../../utils/encryptor";
 import { validSchema } from "../../../validators";
 import { Controller, HttpDataResponse, HttpRequest, HttpResponse } from "../../protocols/controller";
 
@@ -18,12 +20,15 @@ export class CreateUserController implements Controller {
       });
     }
 
+    const encryptedPass = await encryptor.hash(password);
+    const user = await repos.user.create({
+      username,
+      email,
+      password: encryptedPass
+    });
+    
     return res.json({
-      data: {
-        username,
-        email,
-        password
-      }
+      data: user
     });
   }
 }
