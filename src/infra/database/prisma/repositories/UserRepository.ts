@@ -1,9 +1,9 @@
 import { UserModel } from "../../../../domain/models/UserModel";
-import { CreateUserModel, FindUserByEmailModel, FindUserByEmailOrUsernameModel, UpdateUserModel, UserRepo } from "../../../../domain/usecases/user";
+import { CreateUserModel, FindUserByEmailModel, FindUserByEmailOrUsernameModel, FindUserByIdModel, UpdateUserModel, UserRepo } from "../../../../domain/usecases/user";
 import client from "../client";
 
 export class UserRepository implements UserRepo {
-  
+
   async create({ email, password, username }: CreateUserModel): Promise<UserModel> {
     const actualDate = new Date();
 
@@ -26,7 +26,7 @@ export class UserRepository implements UserRepo {
       }
     });
   }
-  
+
   async update({ id, ...changes }: UpdateUserModel): Promise<UserModel> {
     const actualDate = new Date();
     return await client.user.update({
@@ -41,6 +41,12 @@ export class UserRepository implements UserRepo {
   async findByEmail({ email }: FindUserByEmailModel): Promise<UserModel | null> {
     return await client.user.findUnique({
       where: { email }
+    });
+  }
+
+  async findById({ id }: FindUserByIdModel): Promise<UserModel | null> {
+    return await client.user.findUnique({
+      where: { id }
     });
   }
 }
