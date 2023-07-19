@@ -15,3 +15,8 @@ export const CreateUserSchema = UserSchema.pick([
   "email",
   "password"
 ]);
+
+export const AuthUserSchema = UserSchema.pick([
+  "email",
+  "password"
+]);
