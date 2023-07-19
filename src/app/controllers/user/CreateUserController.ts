@@ -21,6 +21,14 @@ export class CreateUserController implements Controller {
       });
     }
 
+    const existsUser = await repos.user.findByEmailOrUsername({ username, email });
+    if(existsUser) {
+      const invalidField = existsUser.email === email ? "email" : "username";
+      return res.status(409).json({
+        error: "Already exists user by " + invalidField
+      });
+    }
+
     const encryptedPass = await encryptor.hash(password);
     const user = await repos.user.create({
       username,
@@ -28,7 +36,7 @@ export class CreateUserController implements Controller {
       password: encryptedPass
     });
 
-    return res.json({
+    return res.status(201).json({
       data: UserDTO.from(user)
     });
   }
