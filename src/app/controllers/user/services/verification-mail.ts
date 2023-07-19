@@ -11,9 +11,7 @@ interface VerificationMail {
 
 export const sendVerificationMail = ({ id, email }: UserModel) => {
   const verifyToken = sign<VerificationMail>({
-    module: "mail:check",
-    id,
-    email
+    module: "mail:check", id, email
   }, {
     expiresIn: "10m",
     subject: email
@@ -26,7 +24,7 @@ export const sendVerificationMail = ({ id, email }: UserModel) => {
   });
 };
 
-export const checkVerificationMailToken = (token: string): JwtPayload<VerificationMail> | null => {
+export const checkTokenVerificationMail = (token: string): JwtPayload<VerificationMail> | null => {
   const isValidToken = verify<VerificationMail>(token);
   if (!isValidToken) {
     return null;
