@@ -1,5 +1,5 @@
 import { UserModel } from "../../../../domain/models/UserModel";
-import { CreateUserModel, FindUserByEmailOrUsernameModel, UserRepo } from "../../../../domain/usecases/user";
+import { CreateUserModel, FindUserByEmailOrUsernameModel, UpdateUserModel, UserRepo } from "../../../../domain/usecases/user";
 import client from "../client";
 
 export class UserRepository implements UserRepo {
@@ -9,9 +9,9 @@ export class UserRepository implements UserRepo {
 
     return await client.user.create({
       data: {
-        email: email,
-        password: password,
-        username: username,
+        email,
+        password,
+        username,
         createdAt: actualDate,
         updatedAt: actualDate,
         verified: false,
@@ -26,5 +26,15 @@ export class UserRepository implements UserRepo {
       }
     });
   }
-
+  
+  async update({ id, ...changes }: UpdateUserModel): Promise<UserModel> {
+    const actualDate = new Date();
+    return await client.user.update({
+      where: { id },
+      data: {
+        ...changes,
+        updatedAt: actualDate,
+      }
+    });
+  }
 }
