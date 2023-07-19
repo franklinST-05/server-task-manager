@@ -20,3 +20,7 @@ export const AuthUserSchema = UserSchema.pick([
   "email",
   "password"
 ]);
+
+export const RecoveryUserSchema = UserSchema.pick([
+  "email",
+]);
