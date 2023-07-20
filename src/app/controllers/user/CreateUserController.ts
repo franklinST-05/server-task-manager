@@ -3,7 +3,7 @@ import { encryptor } from "../../../utils/encryptor";
 import { validSchema } from "../../../validators";
 import { UserDTO } from "../../dtos/UserDTO";
 import { Controller, HttpDataResponse, HttpRequest, HttpResponse } from "../../protocols/controller";
-import { sendVerificationMail } from "./services/verification-mail";
+import { sendVerificationMail } from "./services/auth-verification-mail";
 
 export class CreateUserController implements Controller {
 

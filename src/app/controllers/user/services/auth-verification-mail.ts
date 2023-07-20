@@ -9,12 +9,16 @@ interface VerificationMail {
   email: string;
 }
 
-export const sendVerificationMail = ({ id, email }: UserModel) => {
+export const sendVerificationMail = (user: UserModel) => {
+  const { id, email } = user;
+
   const verifyToken = sign<VerificationMail>({
-    module: "mail:check", id, email
+    module: "mail:check",
+    id,
+    email,
   }, {
     expiresIn: "10m",
-    subject: email
+    subject: email,
   });
 
   mail.sendMail({

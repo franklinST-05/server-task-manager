@@ -1,7 +1,7 @@
 import repos from "../../../infra/database";
 import { UserDTO } from "../../dtos/UserDTO";
 import { Controller, HttpDataResponse, HttpRequest, HttpResponse } from "../../protocols/controller";
-import { checkTokenVerificationMail } from "./services/verification-mail";
+import { checkTokenVerificationMail } from "./services/auth-verification-mail";
 
 export class ActiveUserController implements Controller {
 

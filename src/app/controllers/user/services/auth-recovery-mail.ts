@@ -9,9 +9,13 @@ interface AuthRecoveryMail {
   email: string;
 }
 
-export const sendAuthRecoveryMail = ({ id, email, username }: UserModel) => {
+export const sendAuthRecoveryMail = (user: UserModel) => {
+  const { id, email, username } = user;
+
   const verifyToken = sign<AuthRecoveryMail>({
-    module: "mail:recovery", id, email
+    module: "mail:recovery",
+    id,
+    email
   }, {
     expiresIn: "6m",
     subject: email

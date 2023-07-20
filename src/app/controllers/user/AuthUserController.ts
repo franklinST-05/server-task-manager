@@ -2,8 +2,8 @@ import repos from "../../../infra/database";
 import { encryptor } from "../../../utils/encryptor";
 import { validSchema } from "../../../validators";
 import { Controller, HttpDataResponse, HttpRequest, HttpResponse } from "../../protocols/controller";
-import { randomAuthToken } from "./services/auth-token";
-import { sendVerificationMail } from "./services/verification-mail";
+import { randomAuthToken } from "./services/auth-user-token";
+import { sendVerificationMail } from "./services/auth-verification-mail";
 
 export class AuthUserController implements Controller {
 
