@@ -8,6 +8,7 @@ import { handlerExpressError } from "./handlers/express-error";
 import { RecoveryUserController } from "../../app/controllers/user/RecoveryUserController";
 import { ChangePasswordUserController } from "../../app/controllers/user/ChangePasswordUserController";
 import { CreateBoardController } from "../../app/controllers/board/CreateBoardController";
+import { isAuth } from "./middlewares/isAuth";
 
 const router = Router();
 
@@ -24,7 +25,7 @@ router.post("/account/recovery", recoveryUser.handler);
 router.put("/account/recovery", changePasswordUser.handler);
 
 const createBoard = new CreateBoardController();
-router.post("/board", createBoard.handler);
+router.post("/board", isAuth, createBoard.handler);
 
 router.use(handlerExpressError);
 

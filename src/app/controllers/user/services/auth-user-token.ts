@@ -1,16 +1,11 @@
 import { UserModel } from "../../../../domain/models/UserModel";
 import { sign } from "../../../../utils/jwt";
+import { AuthUser } from "../../../protocols/http/payloads/auth-user";
 
-interface AuthPayload {
-  module: string;
-  username: string;
-  email: string;
-}
-
-export const randomAuthToken = ({ username, email }: UserModel): string => {
-  const authToken = sign<AuthPayload>({
+export const randomAuthToken = ({ id, email }: UserModel): string => {
+  const authToken = sign<AuthUser>({
     module: "auth:sign",
-    username,
+    id,
     email
   }, {
     expiresIn: "3d",
