@@ -16,5 +16,24 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
 
+  Boards       Board[]
+  SharedBoards Board[] @relation(name: "board_user_contributing")
+
   @@map("tb_user")
+}
+
+model Board {
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  title       String
+  description String
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt()
+
+  Owner             User   @relation(fields: [ownerId], references: [id])
+  ownerId           String
+  UsersContributing User[] @relation(name: "board_user_contributing")
+
+  @@map("tb_board")
 }
