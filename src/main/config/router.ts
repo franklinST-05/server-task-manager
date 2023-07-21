@@ -12,6 +12,7 @@ import { isAuth } from "./middlewares/isAuth";
 import { ListBoardsController } from "../../app/controllers/board/ListBoardsController";
 import { UpdateBoardController } from "../../app/controllers/board/UpdateBoardController";
 import { FindBoardController } from "../../app/controllers/board/FindBoardController";
+import { DeleteBoardController } from "../../app/controllers/board/DeleteBoardController";
 
 const router = Router();
 
@@ -31,11 +32,13 @@ const listBoard = new ListBoardsController();
 const createBoard = new CreateBoardController();
 const updateBoard = new UpdateBoardController();
 const findBoard = new FindBoardController();
+const deleteBoard = new DeleteBoardController();
 
 router.get("/board/:id", isAuth, findBoard.handler);
 router.get("/board", isAuth, listBoard.handler);
 router.post("/board", isAuth, createBoard.handler);
 router.put("/board", isAuth, updateBoard.handler);
+router.delete("/board/:id", isAuth, deleteBoard.handler);
 
 router.use(handlerExpressError);
 
