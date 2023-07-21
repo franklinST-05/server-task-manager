@@ -1,9 +1,9 @@
 import { TaskModel } from "../../../../domain/models/TaskModel";
-import { CreateTaskModel, FindTaskByIdModel, TaskRepo } from "../../../../domain/usecases/task";
+import { CreateTaskModel, DeleteTaskByIdModel, FindTaskByIdModel, TaskRepo } from "../../../../domain/usecases/task";
 import client from "../client";
 
 export class TaskRepository implements TaskRepo {
- 
+
   async create({ title, description, done, ownerId, boardId }: CreateTaskModel): Promise<TaskModel> {
     return await client.task.create({
       data: {
@@ -18,6 +18,12 @@ export class TaskRepository implements TaskRepo {
 
   async findById({ id }: FindTaskByIdModel): Promise<TaskModel | null> {
     return await client.task.findUnique({
+      where: { id }
+    });
+  }
+
+  async deleteById({ id }: DeleteTaskByIdModel): Promise<TaskModel> {
+    return await client.task.delete({
       where: { id }
     });
   }

@@ -14,6 +14,7 @@ import { UpdateBoardController } from "../../app/controllers/board/UpdateBoardCo
 import { FindBoardController } from "../../app/controllers/board/FindBoardController";
 import { DeleteBoardController } from "../../app/controllers/board/DeleteBoardController";
 import { CreateTaskController } from "../../app/controllers/task/CreateTaskController";
+import { DeleteTaskController } from "../../app/controllers/task/DeleteTaskController";
 
 const router = Router();
 
@@ -42,8 +43,10 @@ router.put("/board", isAuth, updateBoard.handler);
 router.delete("/board/:id", isAuth, deleteBoard.handler);
 
 const createTask = new CreateTaskController();
+const deleteTask = new DeleteTaskController();
 
 router.post("/task", isAuth, createTask.handler);
+router.delete("/task/:id", isAuth, deleteTask.handler);
 
 router.use(handlerExpressError);
 
