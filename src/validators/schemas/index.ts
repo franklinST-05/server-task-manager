@@ -1,4 +1,4 @@
-import { CreateBoardSchema } from "./yup/BoardSchema";
+import { CreateBoardSchema, UpdateBoardSchema } from "./yup/BoardSchema";
 import { AuthUserSchema, CreateUserSchema, RecoveryUserSchema, UserSchema } from "./yup/UserSchema";
 import { InferType } from "yup";
 
@@ -8,7 +8,8 @@ export const schemas = {
   "user:auth": AuthUserSchema,
   "user:recovery": RecoveryUserSchema,
   
-  "board:create": CreateBoardSchema
+  "board:create": CreateBoardSchema,
+  "board:update": UpdateBoardSchema
 };
 
 export type schemasKeys = keyof typeof schemas;
