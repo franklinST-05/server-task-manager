@@ -16,3 +16,10 @@ export const CreateBoardSchema = BoardSchema.pick([
   "title",
   "description"
 ]);
+
+export const UpdateBoardSchema = object({
+  id: string().uuid().required(),
+  title: string().min(6),
+  description: string().min(12),
+  active: boolean(),
+});
