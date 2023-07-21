@@ -13,6 +13,7 @@ import { ListBoardsController } from "../../app/controllers/board/ListBoardsCont
 import { UpdateBoardController } from "../../app/controllers/board/UpdateBoardController";
 import { FindBoardController } from "../../app/controllers/board/FindBoardController";
 import { DeleteBoardController } from "../../app/controllers/board/DeleteBoardController";
+import { CreateTaskController } from "../../app/controllers/task/CreateTaskController";
 
 const router = Router();
 
@@ -39,6 +40,10 @@ router.get("/board", isAuth, listBoard.handler);
 router.post("/board", isAuth, createBoard.handler);
 router.put("/board", isAuth, updateBoard.handler);
 router.delete("/board/:id", isAuth, deleteBoard.handler);
+
+const createTask = new CreateTaskController();
+
+router.post("/task", isAuth, createTask.handler);
 
 router.use(handlerExpressError);
 
