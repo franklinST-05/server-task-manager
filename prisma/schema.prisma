@@ -17,6 +17,7 @@ model User {
   updatedAt DateTime @updatedAt()
 
   Boards       Board[]
+  Task         Task[]
   SharedBoards Board[] @relation(name: "board_user_contributing")
 
   @@map("tb_user")
@@ -34,6 +35,23 @@ model Board {
   Owner             User   @relation(fields: [ownerId], references: [id])
   ownerId           String
   UsersContributing User[] @relation(name: "board_user_contributing")
+  Tasks             Task[]
 
   @@map("tb_board")
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  done        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  Board   Board  @relation(fields: [boardId], references: [id])
+  boardId String
+  Owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+
+  @@map("tb_task")
 }
