@@ -1,5 +1,5 @@
 import { BoardModel } from "../../../../domain/models/BoardModel";
-import { BoardRepo, CreateBoardModel, FindBoardByIdModel, FindBoardByOwnerIdModel, UpdateBoardModel } from "../../../../domain/usecases/board";
+import { BoardRepo, CreateBoardModel, DeleteBoardByIdModel, FindBoardByIdModel, FindBoardByOwnerIdModel, UpdateBoardModel } from "../../../../domain/usecases/board";
 import client from "../client";
 
 export class BoardRepository implements BoardRepo {
@@ -38,6 +38,12 @@ export class BoardRepository implements BoardRepo {
 
   async findById({ id }: FindBoardByIdModel): Promise<BoardModel | null> {
     return await client.board.findUnique({
+      where: { id }
+    });
+  }
+
+  async deleteById({ id }: DeleteBoardByIdModel): Promise<BoardModel> {
+    return await client.board.delete({
       where: { id }
     });
   }
