@@ -11,6 +11,7 @@ import { CreateBoardController } from "../../app/controllers/board/CreateBoardCo
 import { isAuth } from "./middlewares/isAuth";
 import { ListBoardsController } from "../../app/controllers/board/ListBoardsController";
 import { UpdateBoardController } from "../../app/controllers/board/UpdateBoardController";
+import { FindBoardController } from "../../app/controllers/board/FindBoardController";
 
 const router = Router();
 
@@ -29,7 +30,9 @@ router.put("/account/recovery", changePasswordUser.handler);
 const listBoard = new ListBoardsController();
 const createBoard = new CreateBoardController();
 const updateBoard = new UpdateBoardController();
+const findBoard = new FindBoardController();
 
+router.get("/board/:id", isAuth, findBoard.handler);
 router.get("/board", isAuth, listBoard.handler);
 router.post("/board", isAuth, createBoard.handler);
 router.put("/board", isAuth, updateBoard.handler);
