@@ -1,5 +1,5 @@
 import { BoardModel } from "../../../../domain/models/BoardModel";
-import { BoardRepo, CreateBoardModel, FindBoardByOwnerIdModel, UpdateBoardModel } from "../../../../domain/usecases/board";
+import { BoardRepo, CreateBoardModel, FindBoardByIdModel, FindBoardByOwnerIdModel, UpdateBoardModel } from "../../../../domain/usecases/board";
 import client from "../client";
 
 export class BoardRepository implements BoardRepo {
@@ -33,6 +33,12 @@ export class BoardRepository implements BoardRepo {
         ...changes,
         updatedAt: actualDate,
       }
+    });
+  }
+
+  async findById({ id }: FindBoardByIdModel): Promise<BoardModel | null> {
+    return await client.board.findUnique({
+      where: { id }
     });
   }
 
