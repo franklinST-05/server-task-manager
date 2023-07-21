@@ -15,6 +15,7 @@ import { FindBoardController } from "../../app/controllers/board/FindBoardContro
 import { DeleteBoardController } from "../../app/controllers/board/DeleteBoardController";
 import { CreateTaskController } from "../../app/controllers/task/CreateTaskController";
 import { DeleteTaskController } from "../../app/controllers/task/DeleteTaskController";
+import { FindTasksBoardController } from "../../app/controllers/task/FindTasksBoardController";
 
 const router = Router();
 
@@ -44,7 +45,9 @@ router.delete("/board/:id", isAuth, deleteBoard.handler);
 
 const createTask = new CreateTaskController();
 const deleteTask = new DeleteTaskController();
+const findTaskBoard = new FindTasksBoardController();
 
+router.get("/board/:boardId/task", isAuth, findTaskBoard.handler);
 router.post("/task", isAuth, createTask.handler);
 router.delete("/task/:id", isAuth, deleteTask.handler);
 
