@@ -10,6 +10,7 @@ import { ChangePasswordUserController } from "../../app/controllers/user/ChangeP
 import { CreateBoardController } from "../../app/controllers/board/CreateBoardController";
 import { isAuth } from "./middlewares/isAuth";
 import { ListBoardsController } from "../../app/controllers/board/ListBoardsController";
+import { UpdateBoardController } from "../../app/controllers/board/UpdateBoardController";
 
 const router = Router();
 
@@ -27,9 +28,11 @@ router.put("/account/recovery", changePasswordUser.handler);
 
 const listBoard = new ListBoardsController();
 const createBoard = new CreateBoardController();
+const updateBoard = new UpdateBoardController();
 
 router.get("/board", isAuth, listBoard.handler);
 router.post("/board", isAuth, createBoard.handler);
+router.put("/board", isAuth, updateBoard.handler);
 
 router.use(handlerExpressError);
 
