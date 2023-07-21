@@ -1,5 +1,5 @@
 import { TaskModel } from "../../../../domain/models/TaskModel";
-import { CreateTaskModel, DeleteTaskByIdModel, FindTaskByIdModel, TaskRepo } from "../../../../domain/usecases/task";
+import { CreateTaskModel, DeleteTaskByIdModel, FindTaskByIdModel, FindTasksByBoardIdModel, TaskRepo } from "../../../../domain/usecases/task";
 import client from "../client";
 
 export class TaskRepository implements TaskRepo {
@@ -25,6 +25,12 @@ export class TaskRepository implements TaskRepo {
   async deleteById({ id }: DeleteTaskByIdModel): Promise<TaskModel> {
     return await client.task.delete({
       where: { id }
+    });
+  }
+
+  async findByBoardId({ boardId }: FindTasksByBoardIdModel): Promise<TaskModel[]> {
+    return await client.task.findMany({
+      where: { boardId }
     });
   }
 
